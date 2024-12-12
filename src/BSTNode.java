@@ -15,7 +15,6 @@ public class BSTNode {
         this.right = null;
         this.val = val;
     }
-
     /** Getters and Setters **/
     public BSTNode getLeft() {
         return left;
