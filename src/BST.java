@@ -130,7 +130,7 @@ public class BST {
         if (root == null) {
             return new BSTNode(val);
         }
-        // if the val is less then the root recurse left
+        // if the val is less then the root recurse left :)
         if (val < root.getVal()) {
             root.setLeft(insert(root.getLeft(), val));
         }
@@ -147,16 +147,20 @@ public class BST {
      * @return true if valid false otherwise
      */
     public boolean isValidBST() {
-        return isValidBSTHelper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return isValidBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
-    public boolean isValidBSTHelper(BSTNode node, int min, int max) {
-        if (node == null) {
+    public boolean isValidBST(BSTNode root, int min, int max) {
+        // if the node is null then return true
+        if (root == null) {
             return true;
         }
-        if (node.getVal() <= min || node.getVal() >= max) {
+        // of the node is outside of the max or min values an int can hold return false
+        if (root.getVal() <= min || root.getVal() >= max) {
             return false;
         }
-        return isValidBSTHelper(node.getLeft(), min, node.getVal()) && isValidBSTHelper(node.getRight(), node.getVal(), max);
+        // return true or false based off the info that recursivly checks down the array if all the values are the bounds
+        // an int can hold
+        return isValidBST(root.getLeft(), min, root.getVal()) && isValidBST(root.getRight(), root.getVal(), max);
     }
 
     public static void main(String[] args) {
