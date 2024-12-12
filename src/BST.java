@@ -47,20 +47,24 @@ public class BST {
      * @return true if val is in the tree, false otherwise
      */
     public boolean search(int val) {
-        return search(root, val);
+        //use the helper functions
+        return searchHelper(root, val);
     }
-    public boolean search(BSTNode root, int val) {
+    public boolean searchHelper(BSTNode root, int val) {
+        // base cases of if the root is equal to the value or if it is null
         if (root == null) {
             return false;
         }
         if(root.getVal() == val) {
             return true;
         }
+        // if it isn't either then check if it's greather than val in which case search to the right
         if(root.getVal() > val){
-          return search(root.getRight(), val);
+          return searchHelper(root.getRight(), val);
         }
+        // if its less then val search to the left
        if(root.getVal() < val){
-          return search(root.getLeft(), val);
+          return searchHelper(root.getLeft(), val);
         }
        return false;
     }
