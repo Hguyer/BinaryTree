@@ -47,7 +47,7 @@ public class BST {
      * @return true if val is in the tree, false otherwise
      */
     public boolean search(int val) {
-        //use the helper functions
+        //use the helper function
         return searchHelper(root, val);
     }
     public boolean searchHelper(BSTNode root, int val) {
@@ -60,13 +60,11 @@ public class BST {
         }
         // if it isn't either then check if it's greather than val in which case search to the right
         if(root.getVal() > val){
-          return searchHelper(root.getRight(), val);
-        }
-        // if its less then val search to the left
-       if(root.getVal() < val){
           return searchHelper(root.getLeft(), val);
         }
-       return false;
+        // if its less then val search to the left
+        return searchHelper(root.getRight(), val);
+
     }
 
     /**
@@ -74,14 +72,14 @@ public class BST {
      */
     public ArrayList<BSTNode> getInorder() {
         ArrayList<BSTNode> result = new ArrayList<>();
-        inorderHelper(root, result);
+        inorder(root, result);
         return result;
     }
-    public void inorderHelper(BSTNode root, ArrayList<BSTNode> result) {
+    public void inorder(BSTNode root, ArrayList<BSTNode> result) {
         if (root != null) {
-            inorderHelper(root.getLeft(), result);
+            inorder(root.getLeft(), result);
             result.add(root);
-            inorderHelper(root.getRight(), result);
+            inorder(root.getRight(), result);
         }
     }
 
@@ -90,14 +88,14 @@ public class BST {
      */
     public ArrayList<BSTNode> getPreorder() {
         ArrayList<BSTNode> result = new ArrayList<>();
-        preorderHelper(root, result);
+        preorder(root, result);
         return result;
     }
-    public void preorderHelper(BSTNode root, ArrayList<BSTNode> result) {
+    public void preorder(BSTNode root, ArrayList<BSTNode> result) {
         if (root != null) {
             result.add(root);
-            preorderHelper(root.getLeft(), result);
-            preorderHelper(root.getRight(), result);
+            preorder(root.getLeft(), result);
+            preorder(root.getRight(), result);
         }
     }
 
@@ -106,14 +104,14 @@ public class BST {
      */
     public ArrayList<BSTNode> getPostorder() {
         ArrayList<BSTNode> result = new ArrayList<>();
-        postorderHelper(root, result);
+        postorder(root, result);
         return result;
     }
 
-    public void postorderHelper(BSTNode root, ArrayList<BSTNode> result) {
+    public void postorder(BSTNode root, ArrayList<BSTNode> result) {
         if (root != null) {
-            postorderHelper(root.getLeft(), result);
-            postorderHelper(root.getRight(), result);
+            postorder(root.getLeft(), result);
+            postorder(root.getRight(), result);
             result.add(root);
         }
     }
@@ -125,16 +123,20 @@ public class BST {
      * @param val The value ot insert
      */
     public void insert(int val) {
-        root = insertHelper(root, val);
+        root = insert(root, val);
     }
-    public BSTNode insertHelper(BSTNode root, int val) {
+    public BSTNode insert(BSTNode root, int val) {
+        // base case if the root is null add your new root with a value of val there
         if (root == null) {
             return new BSTNode(val);
         }
+        // if the val is less then the root recurse left
         if (val < root.getVal()) {
-            root.setLeft(insertHelper(root.getLeft(), val));
-        } else if (val > root.getVal()) {
-            root.setRight(insertHelper(root.getRight(), val));
+            root.setLeft(insert(root.getLeft(), val));
+        }
+        //if the val is > the root val recurse right
+        else if (val > root.getVal()) {
+            root.setRight(insert(root.getRight(), val));
         }
         return root;
     }
