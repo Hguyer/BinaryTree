@@ -48,7 +48,23 @@ public class BST {
      */
     public boolean search(int val) {
         // TODO: Complete the search function
-        return false;
+        return search(root, val);
+    }
+    public boolean search(BSTNode root, int val) {
+        // TODO: Complete the search function
+        if (root == null) {
+            return false;
+        }
+        if(root.getVal() == val) {
+            return true;
+        }
+        if(root.getVal() > val){
+          return search(root.getRight(), val);
+        }
+       if(root.getVal() < val){
+          return search(root.getLeft(), val);
+        }
+       return false;
     }
 
     /**
@@ -56,23 +72,49 @@ public class BST {
      */
     public ArrayList<BSTNode> getInorder() {
         // TODO: Complete inorder traversal
-        return null;
+        ArrayList<BSTNode> result = new ArrayList<>();
+        inorderHelper(root, result);
+        return result;
+    }
+    public void inorderHelper(BSTNode root, ArrayList<BSTNode> result) {
+        if (root != null) {
+            inorderHelper(root.getLeft(), result);
+            result.add(root);
+            inorderHelper(root.getRight(), result);
+        }
     }
 
     /**
      * @return ArrayList of BSTNodes in preorder
      */
     public ArrayList<BSTNode> getPreorder() {
-        // TODO: Complete preorder traversal
-        return null;
+        ArrayList<BSTNode> result = new ArrayList<>();
+        preorderHelper(root, result);
+        return result;
+    }
+    public void preorderHelper(BSTNode root, ArrayList<BSTNode> result) {
+        if (root != null) {
+            result.add(root);
+            preorderHelper(root.getLeft(), result);
+            preorderHelper(root.getRight(), result);
+        }
     }
 
     /**
      * @return ArrayList of BSTNodes in postorder
      */
     public ArrayList<BSTNode> getPostorder() {
-        // TODO: Complete postorder traversal
-        return null;
+        ArrayList<BSTNode> result = new ArrayList<>();
+        postorderHelper(root, result);
+        return result;
+    }
+
+    public void postorderHelper(BSTNode root, ArrayList<BSTNode> result) {
+        if (root != null) {
+            postorderHelper(root.getLeft(), result);
+            postorderHelper(root.getRight(), result);
+            result.add(root);
+        }
     }
 
     /**
@@ -82,7 +124,18 @@ public class BST {
      * @param val The value ot insert
      */
     public void insert(int val) {
-        // TODO: Complete insert
+        root = insertHelper(root, val);
+    }
+    public BSTNode insertHelper(BSTNode root, int val) {
+        if (root == null) {
+            return new BSTNode(val);
+        }
+        if (val < root.getVal()) {
+            root.setLeft(insertHelper(root.getLeft(), val));
+        } else if (val > root.getVal()) {
+            root.setRight(insertHelper(root.getRight(), val));
+        }
+        return root;
     }
 
     /**
@@ -92,7 +145,16 @@ public class BST {
      */
     public boolean isValidBST() {
         // TODO: Optional Challenge!
-        return false;
+        return isValidBSTHelper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+    public boolean isValidBSTHelper(BSTNode node, int min, int max) {
+        if (node == null) {
+            return true;
+        }
+        if (node.getVal() <= min || node.getVal() >= max) {
+            return false;
+        }
+        return isValidBSTHelper(node.getLeft(), min, node.getVal()) && isValidBSTHelper(node.getRight(), node.getVal(), max);
     }
 
     public static void main(String[] args) {
