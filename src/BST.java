@@ -164,7 +164,6 @@ public class BST {
         // an int can hold
         return isValidBST(root.getLeft(), min, root.getVal()) && isValidBST(root.getRight(), root.getVal(), max);
     }
-
     public static void main(String[] args) {
         // Tree to help you test your code
         BST tree = new BST();
