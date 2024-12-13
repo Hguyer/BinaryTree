@@ -58,13 +58,12 @@ public class BST {
         if(root.getVal() == val) {
             return true;
         }
-        // if it isn't either then check if it's greather than val in which case search to the right
-        if(root.getVal() > val){
+        // if it isn't either then check if it's greather than val in which case search to the left
+        if(val < root.getRight()){
           return searchHelper(root.getLeft(), val);
         }
-        // if its less then val search to the left
+        // if its val is greater search to the right
         return searchHelper(root.getRight(), val);
-
     }
 
     /**
@@ -77,6 +76,7 @@ public class BST {
     }
     public void inorder(BSTNode root, ArrayList<BSTNode> result) {
         if (root != null) {
+            // print the result in the middle
             inorder(root.getLeft(), result);
             result.add(root);
             inorder(root.getRight(), result);
@@ -93,6 +93,7 @@ public class BST {
     }
     public void preorder(BSTNode root, ArrayList<BSTNode> result) {
         if (root != null) {
+            // print the result before
             result.add(root);
             preorder(root.getLeft(), result);
             preorder(root.getRight(), result);
@@ -110,6 +111,7 @@ public class BST {
 
     public void postorder(BSTNode root, ArrayList<BSTNode> result) {
         if (root != null) {
+            // print the result after
             postorder(root.getLeft(), result);
             postorder(root.getRight(), result);
             result.add(root);
